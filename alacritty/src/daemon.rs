@@ -57,6 +57,17 @@ where
     S: AsRef<OsStr>,
 {
     let mut command = Command::new(program);
+    
+    // Resolve paths relative to user's home directory.
+    if program.starts_with("~/") {
+        let mut path = PathBuf::from(program);
+
+        if let (Ok(stripped), Some(home_dir)) = (path.strip_prefix("~/"), dirs::home_dir()) {
+            path = home_dir.join(stripped);
+            command = Command::new(path);
+        }
+    }
+    
     command.args(args).stdin(Stdio::null()).stdout(Stdio::null()).stderr(Stdio::null());
     if let Ok(cwd) = foreground_process_path(master_fd, shell_pid) {
         command.current_dir(cwd);
