@@ -1,5 +1,17 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
+# A note about command fields
+#
+# Some config entries can contain a command field. Any command fields consists
+# of a map containing a `program` string and an `args` array of command line
+# parameter strings.
+#
+# If the `program` string should be a path relative to the user's home directory
+# it must start with `~/`.
+#
+# If no command line parameters are necessary, one can use
+# command: program_with_no_args
+
 # Import additional configuration files
 #
 # Imports are loaded in order, skipping all missing files, with the importing
